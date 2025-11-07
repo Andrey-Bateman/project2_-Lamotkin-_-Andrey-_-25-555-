@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "project2-lamotkin-andrey-25-555"
+version = "0.1.0"
+description = ""
+authors = ["Andrey Lamotkin <andrey@example.com>"]
+readme = "README.md"
+packages = [
+    { include = "src" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.12"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+project = "src.primitive_db.main:main"
