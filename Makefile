@@ -12,3 +12,5 @@ publish:
 
 package-install:
 	pipx install dist/*.whl
+lint:
+	poetry run ruff check
