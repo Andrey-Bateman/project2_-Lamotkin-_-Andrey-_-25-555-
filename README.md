@@ -18,3 +18,10 @@
 - магазин
 
 >>>Введите команду: exit
+
+ Демо работы 
+<div style="text-align: center;">
+  <script src="https://asciinema.org/a/EpT125IvFH5jeXRZtOHsWfVGF.js" id="asciicast-EpT125IvFH5jeXRZtOHsWfVGF" async data-auto-play="true" data-preload="true"></script>
+</div>
+
+
