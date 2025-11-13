@@ -1,7 +1,14 @@
 from typing import Dict, Any, List
 from .utils import load_metadata
 from src.primitive_db.utils import load_table_data
+from .decorators import handle_db_errors
+from .decorators import confirm_action
+from .decorators import log_time
+from .decorators import create_cacher
 
+_select_cache = create_cacher()
+
+@handle_db_errors
 def create_table(metadata: Dict[str, Any], table_name: str, columns: List[str]) -> Dict[str, Any]:
     if "tables" not in metadata:
         metadata["tables"] = {}
@@ -23,7 +30,7 @@ def create_table(metadata: Dict[str, Any], table_name: str, columns: List[str]) 
         table_columns["ID"] = "int"
     metadata["tables"][table_name] = {"columns": table_columns}
     return metadata
-
+@confirm_action("удаление таблицы")
 def drop_table(metadata: Dict[str, Any], table_name: str) -> Dict[str, Any]:
     if table_name not in metadata.get("tables", {}):
         raise ValueError(f'Таблица "{table_name}" не существует.')
@@ -53,7 +60,8 @@ def validate_value(value: str, col_type: str) -> Any:
     elif col_type == "str":
         return value
     raise ValueError(f'Неизвестный тип {col_type}.')
-
+@handle_db_errors
+@log_time
 def insert(metadata, table_name, values):
    
     if not metadata or table_name not in metadata:
@@ -96,11 +104,15 @@ def insert(metadata, table_name, values):
     table_data.append(new_row)
     return table_data  
 
+@handle_db_errors
+@log_time
 def select(table_data, where_clause=None):
-    if where_clause is None:
-        return table_data
-    return [row for row in table_data if all(row.get(key) == value for key, value in where_clause.items())]
+    key = f"{id(table_data)}_{str(where_clause)}"  
+    def get_data():
+        return [row for row in table_data if where_clause is None or all(row.get(k) == v for k, v in where_clause.items())]
+    return _select_cache(key, get_data)
 
+@handle_db_errors
 def update(table_data, set_clause, where_clause):
     updated_rows = [row for row in table_data if all(row.get(key) == value for key, value in where_clause.items())]
     if not updated_rows:
@@ -111,6 +123,9 @@ def update(table_data, set_clause, where_clause):
             row[key] = value
     
     return table_data  
+
+@handle_db_errors
+@confirm_action("удаление записи")
 def delete(table_data, where_clause):
     initial_count = len(table_data)
     table_data[:] = [row for row in table_data if not all(row.get(key) == value for key, value in where_clause.items())]

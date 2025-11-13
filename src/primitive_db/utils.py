@@ -15,13 +15,22 @@ def save_metadata(filepath, metadata):
         os.makedirs(dir_path, exist_ok=True)
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=2)
+import json
+import os
+
 def load_table_data(table_name):
     file_path = f"data/{table_name}.json"
     if os.path.exists(file_path):
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    return data
+                else:
+                    return []  
+        except (json.JSONDecodeError, ValueError):
+            return []  
     return []  
-
 def save_table_data(table_name, data):
     file_path = f"data/{table_name}.json"
     os.makedirs(os.path.dirname(file_path), exist_ok=True)  

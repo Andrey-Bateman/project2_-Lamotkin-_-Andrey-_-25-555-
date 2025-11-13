@@ -23,7 +23,8 @@ project = "src.primitive_db.main:main"
 
 [dependency-groups]
 dev = [
-    "ruff (>=0.14.4,<0.15.0)"
+    "ruff (>=0.14.4,<0.15.0)",
+    "flake8 (>=7.3.0,<8.0.0)"
 ]
 [tool.ruff]
 line-length = 88

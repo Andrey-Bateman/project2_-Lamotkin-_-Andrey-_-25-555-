@@ -36,3 +36,21 @@ https://asciinema.org/a/EpT125IvFH5jeXRZtOHsWfVGF
 
  Демо работы
 https://asciinema.org/a/JNQeJmHEBfAuV8gtlTyImOjLe
+
+ Декораторы и замыкания
+
+Проект улучшен с помощью декораторов для обработки ошибок (@handle_db_errors), подтверждения действий (@confirm_action), замера времени (log_time) и замыкания для кэширования в select.
+
+Новые возможности:
+
+- Автоматическая обработка ошибок без дублирования кода.
+
+- Подтверждение для удаления (y/n).
+
+- Замер времени выполнения insert/select.
+
+- Кэширование результатов select (повторные запросы быстрее).
+
+Демо работы
+
+https://asciinema.org/a/zxrNcW5zBhnPq4KRsGU7ncUz7
