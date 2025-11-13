@@ -21,6 +21,7 @@
 
  Демо работы 
 https://asciinema.org/a/EpT125IvFH5jeXRZtOHsWfVGF
+
  CRUD-операции
 
 Команды:
@@ -33,4 +34,5 @@ https://asciinema.org/a/EpT125IvFH5jeXRZtOHsWfVGF
 
 - `delete from <table> where <col> = <val>` – удалить.
 
-
+ Демо работы
+https://asciinema.org/a/JNQeJmHEBfAuV8gtlTyImOjLe
