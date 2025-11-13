@@ -21,3 +21,16 @@
 
  Демо работы 
 https://asciinema.org/a/EpT125IvFH5jeXRZtOHsWfVGF
+ CRUD-операции
+
+Команды:
+
+- `insert into <table> values (<val1>, <val2>, ...)` – добавить запись (ID генерируется автоматически).
+
+- `select from <table> [where <col> = <val>]` – выбрать все или по условию.
+
+- `update <table> set <col> = <new_val> where <col> = <val>` – обновить.
+
+- `delete from <table> where <col> = <val>` – удалить.
+
+

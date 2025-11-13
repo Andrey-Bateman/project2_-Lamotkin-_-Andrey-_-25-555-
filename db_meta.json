@@ -1,11 +1,22 @@
 {
-    "tables": {
-        "магазин": {
-            "columns": [
-                "ID:int",
-                "продажи:bool",
-                "цена:int"
-            ]
-        }
-    }
+  "users": {
+    "columns": [
+      [
+        "ID",
+        "int"
+      ],
+      [
+        "name",
+        "str"
+      ],
+      [
+        "age",
+        "int"
+      ],
+      [
+        "is_active",
+        "bool"
+      ]
+    ]
+  }
 }

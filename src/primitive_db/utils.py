@@ -1,16 +1,29 @@
 import json
-from typing import Any, Dict
+import os
+from typing import Dict, Any, List
 
-
-def load_metadata(filepath: str) -> Dict[str, Any]:
-    """Загружает метаданные из JSON. Если файл не найден, возвращает {}."""
-    try:
+def load_metadata(filepath="db_meta.json"):
+    if os.path.exists(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return {"tables": {}}
+            data = json.load(f)
+            return data if isinstance(data, dict) else {}  
+    return {}  
 
-def save_metadata(filepath: str, data: Dict[str, Any]) -> None:
-    """Сохраняет метаданные в JSON."""
+def save_metadata(filepath, metadata):
+    dir_path = os.path.dirname(filepath)
+    if dir_path and dir_path != '.':  
+        os.makedirs(dir_path, exist_ok=True)
     with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+        json.dump(metadata, f, ensure_ascii=False, indent=2)
+def load_table_data(table_name):
+    file_path = f"data/{table_name}.json"
+    if os.path.exists(file_path):
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return []  
+
+def save_table_data(table_name, data):
+    file_path = f"data/{table_name}.json"
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)  
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
